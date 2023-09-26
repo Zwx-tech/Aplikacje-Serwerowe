@@ -4,11 +4,15 @@ from flask_bs4 import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
+import json
 
 # config
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 app.config['SECRET_KEY'] = 'we live we love we lie'
+# load 'db'
+with open("data/users.json") as f:
+    users = json.load(f)
 
 class LoginForm(FlaskForm):
     """
@@ -18,16 +22,13 @@ class LoginForm(FlaskForm):
     userPass = PasswordField('Hasło:', validators=[DataRequired()])
     submit = SubmitField('Zaloguj')
 
-users = {
-    'userLogin': 'jjj',
-    'userPass': 'zaq1',
-    'firstName': 'Jan',
-    'lastName': 'Wisz'
-}
+
+
 # routes
 @app.route('/')
 def index():
-    return render_template('index.html', title="Index")
+    loginForm = LoginForm()
+    return render_template('index.html', title="Index", login=loginForm)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -35,8 +36,10 @@ def login():
     if loginForm.validate_on_submit():
         userLogin = loginForm.userLogin.data
         userPass = loginForm.userPass.data
+        print(users)
         if userLogin == users['userLogin'] and userPass == users['userPass']:
             session['userLogin'] = userLogin
+            session['firstName'] = users['firstName']
             return redirect('dashboard')
     return render_template('login.html', title="Logowaie", login=loginForm)
 
