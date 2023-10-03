@@ -15,7 +15,7 @@ class LoginForm(FlaskForm):
     """
     formularz logowania
     """
-    aField = IntegerField('a:', validators=[DataRequired()])
+    aField = IntegerField('a:', validators=[])
     bField = IntegerField('b:', validators=[DataRequired()])
     cField = IntegerField('c:', validators=[DataRequired()])
     submit = SubmitField('Solve')
@@ -30,9 +30,13 @@ def login():
     loginForm = LoginForm()
     result = ''
     if loginForm.validate_on_submit():
-        a = int(loginForm.aField.data)
-        b = int(loginForm.bField.data)
-        c = int(loginForm.cField.data)
+        a = loginForm.aField.data
+        b = loginForm.bField.data
+        c = loginForm.cField.data
+        print(f"123: {a}")
+        if a == 0 or not a:
+            result = 'to nie jest funkcja kwadratowa!!!'
+            return render_template('login.html', title="Logowaie", login=loginForm, result=result)
         delta = b*b - 4*a*c
         if delta > 0:
             x1 = round((-b + math.sqrt(delta)) / (2 * a), 2)
