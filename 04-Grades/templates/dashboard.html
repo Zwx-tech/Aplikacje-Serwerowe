@@ -1,5 +1,5 @@
 {% extends "bootstrap/base.html" %}
-{% block script %}
+{% block scripts %}
     {{ super() }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 {% endblock %}
@@ -13,12 +13,23 @@
     {% else %}
         {% include "includes/navbar.html" %}
     {% endif %}
-
-    {% include "includes/navbar.html" %}
 {% endblock %}
 {% block content %}
-    <div class="container py-4 py-xl-5">
-        <h3>Jestes zalogowany jako {{ userLogin }}</h3>
-        <a class="btn btn-outline-success" href="/logOut">Wyloguj</a>
+    <div class="px-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card" style="height: 150px">
+                <div class="card-header">Średnia 4,75</div>
+                <div class="card-body">
+                    <h5 class="catd-title">Przedmioty ze średnią 4,75 lub większą</h5>
+                    <div class="card-text">
+                        matematyka <span class="badge bg-success">4,78</span>
+                        biologia <span class="badge bg-success">5,05</span>
+                        informatyka <span class="badge bg-success">5,30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 {% endblock %}

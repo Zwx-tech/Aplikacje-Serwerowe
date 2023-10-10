@@ -47,7 +47,7 @@ def login():
 def dashboard():
     if not session.get('userLogin'):
         return redirect('login')
-    return render_template('results.html', title="Logowaie", userLogin=session.get('userLogin'))
+    return render_template('dashboard.html', title="Logowaie", userLogin=session.get('userLogin'))
 
 @app.route('/logOut')
 def logOut():
